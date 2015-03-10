@@ -17,6 +17,15 @@ ActiveAdmin.register Pricelist do
         end
       end
 
+      tab 'Prices with label' do
+        f.inputs 'Prices with label' do
+          f.has_many :prices, heading: false, allow_destroy: false, new_record: false do |price|
+            label "#{price.object.try!(:city).try!(:name)}"
+            price.input :amount
+          end
+        end
+      end if f.object.try!(:persisted?)
+
 
       tab 'Prices with readonly city_id' do
         f.inputs 'Prices with readonly city_id' do
